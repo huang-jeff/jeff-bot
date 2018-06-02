@@ -1,20 +1,42 @@
 const Discord = require('discord.js');
 const Commando = require('discord.js-commando');
+const { prefix, token, owner } = require('./config.json');
 //const bot = Discord.Client();
-const bot = new Commando.Client();
-
-bot.registry.registerGroup('random', 'Random');
-bot.registry.registerDefaults();
-bot.registry.registerCommandsIn(__dirname + "/commands");
-
-bot.on('message', (message) => {
-    if(message.content == 'ping!'){
-        message.channel.send('pong!');    //sends message to channel without person tag
-    }
+const bot = new Commando.Client({
+  commandPrefix: prefix,
+  owner: owner,
+  disableEveryone: false
 });
+
+bot.registry.registerGroups([
+    ['random', 'Random number generators'],
+    ['roles', 'Role commands']
+  ])
+  .registerDefaults()
+  //.registerDefaultCommands()
+  .registerCommandsIn(__dirname + "/commands");
+
+bot.on('ready', () => {
+  console.log('jeff bot is now ready to slave away.');
+  bot.user.setActivity('upgrading some new stuff!');
+});
+
+bot.on('message', message => {
+  // preventing bot from reading non-command messages and self-written messages
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const command = args.shift().toLowerCase();
+
+  if(message.content == 'ping'){
+    message.channel.send('pong!');    //sends message to channel without person tag
+  }
+  if(message.content == 'beep'){
+    message.channel.send('boop.');
+  }
+});
+
+
 
 /*
  *  Bot token - THIS SHOULD BE A PRIVATE TOKEN
  */
-bot.login('NDQ4MzQ5MzY4NzczMzc4MDY4.DfHxNw.zJEYJAqwIIWRx3g41DDf16g87Uc');
-console.log('jeff bot is now running');
+bot.login(token); // makes sure to remove after pushing.
