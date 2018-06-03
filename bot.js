@@ -1,19 +1,19 @@
-const Discord = require('discord.js');
 const Commando = require('discord.js-commando');
 const { prefix, token, owner } = require('./config.json');
-//const bot = Discord.Client();
+
 const bot = new Commando.Client({
   commandPrefix: prefix,
   owner: owner,
   disableEveryone: false
 });
 
+
 bot.registry.registerGroups([
-    ['random', 'Random number generators'],
-    ['roles', 'Role commands']
+    ['random', 'RNG plug-ins'],
+    ['roles', 'Role plug-ins'],
+    ['utils', 'Utility plug-ins']
   ])
   .registerDefaults()
-  //.registerDefaultCommands()
   .registerCommandsIn(__dirname + "/commands");
 
 bot.on('ready', () => {

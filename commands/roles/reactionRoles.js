@@ -1,12 +1,12 @@
-const Commando = require('discord.js-commando');
+const {Command} = require('discord.js-commando');
 
-class RoleReaction extends Commando.Command {
+class RoleReaction extends Command {
   constructor(client){
     super(client, {
-      name: 'reactRoles',
+      name: 'assignrole',
       group: 'roles',
-      memberName: 'ractRoles',
-      descrption: 'Reaction to a specified message will assign a specific role.',
+      memberName: 'assignrole',
+      description: 'Reaction to a specified message will assign a specific role.',
       examples: ['I haven\'t thought of an example yet']
     });
   }
@@ -15,5 +15,6 @@ class RoleReaction extends Commando.Command {
     message.delete();
     message.say('oops. looks like this isn\'t implemented yet.')
   }
-
 }
+
+module.exports = RoleReaction;
