@@ -6,7 +6,7 @@ class DiceRollCommand extends Command {
       name: 'rng',
       group: 'random',
       memberName: 'roll',
-      description: 'Rolls a die, flips a coin or generates a random number from [1,',
+      description: 'Rolls a die, flips a coin or generates a random number for [1, n].',
       examples: ['>rng coin -> Heads side up!', '>rng die -> Die rolled a 3.', '>rng number <amount> -> RNG says it\'s 4.'],
       args: [{
         key: 'text',

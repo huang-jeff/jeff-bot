@@ -7,7 +7,6 @@ const bot = new Commando.Client({
   disableEveryone: false
 });
 
-
 bot.registry.registerGroups([
     ['random', 'RNG plug-ins'],
     ['roles', 'Role plug-ins'],
@@ -25,16 +24,31 @@ bot.on('message', message => {
   // preventing bot from reading non-command messages and self-written messages
   const args = message.content.slice(prefix.length).split(/ +/);
   const command = args.shift().toLowerCase();
-
-  if(message.content == 'ping'){
+  if(message.content === 'ping'){
     message.channel.send('pong!');    //sends message to channel without person tag
   }
-  if(message.content == 'beep'){
+  if(message.content === 'beep'){
     message.channel.send('boop.');
+  }
+  if(message.content === '<reboot>'){
+    message.delete();
+    rebootBot(message.channel);
   }
 });
 
+bot.on('messageReaction', message => {
+  message.channel.send('WOW A REACTION!');
+});
 
+/*
+ *  Manual Bot functions
+ */
+function rebootBot(channel){
+  console.log('Rebooting...');
+  channel.send('Rebooting...')
+    .then(msg => bot.destroy())
+    .then(() => bot.login(token));
+}
 
 /*
  *  Bot token - THIS SHOULD BE A PRIVATE TOKEN
